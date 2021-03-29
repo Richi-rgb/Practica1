@@ -2,28 +2,25 @@
 using namespace std;
 
 int main() {
-	// variable to break the cycle
-	unsigned short int exit = 1;
-
-	while (exit == true) {
+	while (true) {
 		// variable to choose the exercise
 		unsigned short int exercise;
 
-		// first, third, fourth, fifth, sixth, seventh, eighth, eleventh exercise use some variables from here
-		unsigned long int A, B, remainder, division, result, counter;
+		/* first, third, fourth, fifth, sixth, seventh, eighth, eleventh, twelveth, fifteenth, sixteenth, seventeenth, eighteenth, nineteenth, twentieth
+		exercise use some variables from here */
+		unsigned long long int A, B, remainder, division, result, counter, other_N, digit;
 
-		// variable of second, seventh, eighth, ninth, tenth, eleventh exercises
-		unsigned int N;
+		/* variable of second, seventh, eighth, ninth, tenth, eleventh, twelveth, thirteenth, fifteenth, sixteenth, seventeenth, eighteenth, nineteenth, twentieth
+		exercises */
+		unsigned long long int N;
 
-		// fifth exercise variables
-		float a, b, float_division;
-
-		//ninth exercise variables
-		float perimeter, area, pi = 3.1416;
+		// fifth, ninth exercise use some variables from here
+		float a, b, float_division, perimeter, area, pi = 3.1416;
 
 		cout << "Choose an exercise (between 1 to 47) or type 0 to exit: ";
 		cin >> exercise;
-		exit = exercise;
+		if (exercise == 0) { break; }
+
 		switch (exercise) {
 		case 1:
 			// Escriba un programa que pida dos números A y B e imprima en pantalla el residuo de la división A / B.
@@ -138,6 +135,142 @@ int main() {
 			// Escriba un programa que pida un número N e imprima en pantalla su tabla de multiplicar hasta 10xN.
 			cout << "Type a number: ";
 			cin >> N;
+			for (unsigned long long int i = 1; i <= 10; ++i) {
+				result = i * N;
+				cout << i << "x" << N << "=" << result << endl;
+			}
+			break;
+		case 12:
+			// Escriba un programa que pida un número N e imprima todas las potencias desde N^1 hasta N^5
+			cout << "Type a number: ";
+			cin >> N;
+			counter = 1;
+			for (int i = 1; i <= 5; ++i) {
+				counter = N * counter;
+				cout << N << "^" << i << "=" << counter << endl;
+			}
+			break;
+		case 13:
+			// Escriba un programa que pida un número N e imprima todos los divisores de N.
+			cout << "Type a number: ";
+			cin >> N;
+			for (int i = 1; i <= N; ++i) {
+				if ((N % i) == 0) {
+					cout << i << endl;
+				}
+			}
+			break;
+		case 14:
+			// Escriba un programa que imprima dos columnas paralelas, una con los números del 1 al 50 y otra con los números del 50 al 1.
+			for (int i = 1; i <= 50; ++i) {
+				cout << i << "   " << (51 - i) << endl;
+			}
+			break;
+		case 15:
+			// Escriba un programa que pida constantemente números hasta que se ingrese el número cero e imprima en pantalla la suma de todos los números ingresados.
+			cout << "Type numbers and type 0 when you want to stop:" << endl;
+			result = 0;
+			while (true) {
+				cin >> N;
+				if (N != 0) { result = result + N; }
+				else {
+					cout << "The result of the sum is: " << result;
+					break;
+				}
+			}
+			break;
+		case 16:
+			/* Escriba un programa que pida constantemente números hasta que se ingrese el número cero e imprima en pantalla el promedio de los números
+			ingresados(excluyendo el cero). */
+			cout << "Type numbers and type 0 when you want to stop:" << endl;
+			counter = 0;
+			for (int i = 0; true; ++i) {
+				cin >> N;
+				counter = counter + N;
+				if (N == 0) {
+					cout << "The average is: " << (counter / i);
+					break;
+				}
+			}
+			break;
+		case 17:
+			// Escriba un programa que pida constantemente números hasta que se ingrese el número cero e imprima en pantalla el mayor de todos los números ingresados.
+			cout << "Type numbers and type 0 when you want to stop:" << endl;
+			counter = 0;
+			while (true) {
+				cin >> N;
+				if (N > counter) {
+					counter = N;
+				}
+				else if (N == 0){
+					cout << "The largest number was: " << counter;
+					break;
+				}
+			}
+			break;
+		case 18:
+			// Escriba un programa que pida un número N e imprima si es o no un cuadrado perfecto.
+			cout << "Type a number: ";
+			cin >> N;
+			for (unsigned long long int i = 1; true; ++i) {
+				result = i * i;
+				if (result == N) {
+					cout << N << " is a perfect square.";
+					break;
+				}
+				else if (result > N) {
+					cout << N << " is not a perfect square.";
+					break;
+				}
+			}
+			break;
+		case 19:
+			// Escriba un programa que pida un número N e imprima si es o no un número primo.
+			cout << "Type a number: ";
+			cin >> N;
+			counter = 0;
+			if (N > 1) {
+				for (int i = 1; i <= N; ++i) {
+					if (N % i == 0) {
+						counter = counter + i;
+					}
+				}
+				if (counter == (N + 1)) {
+					cout << N << " is a prime number.";
+				}
+				else {
+					cout << N << " is not a prime number.";
+				}
+			}
+			else {
+				cout << N << " is not a prime number.";
+			}
+			break;
+		case 20:
+			// Escriba un programa que pida un número N e imprima si es o no un palíndromo (igual de derecha a izquierda que de izquierda a derecha).
+			cout << "Type a number: ";
+			cin >> N;
+			other_N = N;
+			result = 0;
+			counter = 1;
+			for (unsigned long long int i = 10; N>=i; i *= 10) {
+				counter = counter * 10;
+			}
+			while (other_N >= 10) {
+				digit = other_N % 10;
+				digit *= counter;
+				result += digit;
+				other_N /= 10;
+				counter /= 10;
+			}
+			result += other_N;
+			if (result == N) {
+				cout << N << " is a palindrome number.";
+			}
+			else {
+				cout << N << " is not a palindrome number.";
+			}
+			break;
 		}
 		cout << endl;
 	}
