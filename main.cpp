@@ -10,30 +10,32 @@ int main() {
 		unsigned short int exercise;
 
 		/* first, third, fourth, fifth, sixth, seventh, eighth, eleventh, twelveth, fifteenth, sixteenth, seventeenth, eighteenth, nineteenth, twentieth,
-		twenty third, twenty fifth, twenty sixth, thirty-second exercise use some variables from here */
-		unsigned long long int A, B, C, remainder, division, result, counter, other_N, digit, higher, money, wanting;
+		twenty third, twenty fifth, twenty sixth, twenty seventh, thirty-second, thirty-fifth, thirty-seventh, thirty-eighth, thirty-ninth, forty-first,
+		forty-second, forty-third, forty-fourth, forty-sixth, forty-seventh exercise use some variables from here */
+		unsigned long long int A, B, C, remainder, division, result, counter, other_N, digit, higher, first_operand, second_operand, money, wanting, mid, column, other_counter;
+		unsigned long long int next_term, t1, t2, no_repeat, seed;
 		unsigned long long int fifty_thousand, twenty_thousand, ten_thousand, five_thousand, two_thousand, thousand, five_hundred, two_hundred, hundred, fifty;
 
 		/* variable of second, seventh, eighth, ninth, tenth, eleventh, twelveth, thirteenth, fifteenth, sixteenth, seventeenth, eighteenth, nineteenth,
-		twentieth, twenty second, twenty fourth, twenty fifth, twenty eighth exercises */
+		twentieth, twenty second, twenty fourth, twenty fifth, twenty eighth, thirty-fifth, thirty-sixth, thirty-seventh, thirty-ninth, forty-first, forty-second,
+		forty-third, forty-fourth, forty-sixth, forty-seventh exercises */
 		unsigned long long int N;
 
-		// fifth, ninth exercise, twenty eighth use some variables from here
-		double a, b, double_division, perimeter, area, pi = 3.1416, sum, growing;
+		// fifth, ninth exercise, twenty eighth, thirty-sixth use some variables from here
+		double a, b, double_division, perimeter, area, pi = 3.1416, sum, growing, factorial;
 
-		// variable of twentyfirst, twenty seventh, thirty-first exercises
+		// twentyfirst, twenty seventh, thirty-first use some variables from here
 		char c, operation, letter;
 
-		// variable of twenty second, thirtieth exercises
-		unsigned short int second, minute, hour, number, maximum, minimum, rand_num, short_counter;
-
-		// variable of twenty seventh exercises
-		long long int first_operand, second_operand;
+		// twenty second, thirtieth, thirtieth-third, thirty-fourth, forty-fourth use some variables from here
+		unsigned short int second, minute, hour, number, maximum, minimum, rand_num, short_counter, month, day, first_number, second_number;
+		unsigned short int duration_time, duration_hour, duration_minute, day_time, new_hour, new_minute, time_new;
 
 		cout << "Choose an exercise (between 1 to 47) or type 0 to exit: ";
 		cin >> exercise;
 		if (exercise == 0) { break; }
 
+		// every case is an exercise
 		switch (exercise) {
 		case 1:
 			// Escriba un programa que pida dos números A y B e imprima en pantalla el residuo de la división A / B.
@@ -266,17 +268,16 @@ int main() {
 			other_N = N;
 			result = 0;
 			counter = 1;
-			for (unsigned long long int i = 10; N >= i; i *= 10) {
+			for (unsigned long long int i = 10; i <= N; i *= 10) {
 				counter = counter * 10;
 			}
-			while (other_N >= 10) {
+			while (other_N >= 1) {
 				digit = other_N % 10;
 				digit *= counter;
 				result += digit;
 				other_N /= 10;
 				counter /= 10;
 			}
-			result += other_N;
 			if (result == N) {
 				cout << N << " is a palindrome number.";
 			}
@@ -507,6 +508,349 @@ int main() {
 		case 33:
 			/* Escriba un programa que debe leer un mes y un día de dicho mes para luego decir si esa combinación de mes y día son válidos.
 			El caso más especial es el 29 de febrero, en dicho caso imprimir posiblemente año bisiesto. */
+			cout << "Type a month: ";
+			cin >> month;
+			cout << "Type a day: ";
+			cin >> day;
+			if (month < 1 || month > 12) { cout << month << "it's an invalid month."; }
+			else {
+				if (month == 2) {
+					if (day == 29) { cout << day << "/" << month << " is valid in leap year."; }
+					else if (day > 0 && day <=28) { cout << day << "/" << month << " is a valid date."; }
+					else { cout << day << "/" << month << " is an invalid date."; }
+				}
+				else if (month <= 7 && (month % 2) == 1) {
+					if (day > 0 && day <= 31) { cout << day << "/" << month << " is a valid date."; }
+					else { cout << day << "/" << month << " is an invalid date."; }
+				}
+				else if (month > 2 && month < 7 && (month % 2) == 0) {
+					if (day > 0 && day <= 30) { cout << day << "/" << month << " is a valid date."; }
+					else { cout << day << "/" << month << " is an invalid date."; }
+				}
+				else if (month > 7 && month <= 12 && (month % 2) == 0) {
+					if (day > 0 && day <= 31) { cout << day << "/" << month << " is a valid date."; }
+					else { cout << day << "/" << month << " is an invalid date."; }
+				}
+				else if (month > 8 && month < 12 && (month % 2) == 1) {
+					if (day > 0 && day <= 30) { cout << day << "/" << month << " is a valid date."; }
+					else { cout << day << "/" << month << " is an invalid date."; }
+				}
+			}
+			break;
+		case 34:
+			/* Escriba un programa para leer dos números enteros con el siguiente signicado: el valor del primer número representa una
+			hora del día en un reloj de 24 horas, de modo que 1245 representa las doce y cuarenta y cinco de la tarde.
+			El segundo entero representa un tiempo de duración de la misma manera, por lo que 345 representa tres horas y 45 minutos.
+			El programa debe sumar esta duración primer número, y el resultado será impreso en la misma notación, en este caso 1630,
+			que es el tiempo de 3 horas y 45 minutos después de 12:45. */
+			cout << "Type a number: ";
+			cin >> day_time;
+			cout << "type another number: ";
+			cin >> duration_time;
+			hour = day_time / 100;
+			duration_hour = duration_time / 100;
+			minute = day_time % 100;
+			duration_minute = duration_time % 100;
+			if (hour > 23 || minute > 59) { cout << day_time << " is an invalid time."; }
+			else if (duration_hour > 23 || duration_minute > 59) { cout << duration_time << " is an invalid time."; }
+			else {
+				new_hour = 0;
+				if ((minute + duration_minute) > 59) {
+					new_minute = (minute + duration_minute) - 60;
+					new_hour += 1;
+				}
+				else { new_minute = minute + duration_minute; }
+				if ((hour + duration_hour + new_hour) > 23) {
+					new_hour = (hour + duration_hour + new_hour) - 24;
+				}
+				else { new_hour = hour + duration_hour + new_hour; }
+				new_hour *= 100;
+				time_new = new_hour + new_minute;
+				cout << "The time is: " << time_new;
+			}
+			break;
+		case 35:
+			/* Escriba un programa que muestre el siguiente patrón en la pantalla:
+				*
+			   ***
+			  *****
+			 *******
+			  *****
+			   ***
+				*
+			El tamaño del patrón estará determinado un número entero impar que ingrese el usuario. En el ejemplo mostrado, el tamaño de la figura es 7. */
+			cout << "Type an odd number: ";
+			cin >> N;
+			if ((N % 2) != 1) { cout << "The number entered is not odd."; }
+			else {
+				mid = (N / 2) + 1;
+				column = 0;
+				counter = 1;
+				for (unsigned long long i = 1; i <= N; i++) {
+					if (i > mid) { column -= 2; }
+					for (unsigned long long j = 1; j <= N; j++) {
+						if (j <= mid) { column++; }
+						else { column--; }
+						if (column < mid) { cout << " "; }
+						else { cout << "*"; }
+					}
+					cout << endl;
+				}
+			}
+			break;
+		case 36:
+			/* Escriba un programa que encuentre el valor aproximado del número de euler en base a la siguiente suma infinita:
+				e = (1/0!) + (1/1!) + (1/2!) + (1/3!) + (1/4!) + (1/5!) + ...
+			El usuario debe ingresar el número de elementos usados en la aproximación. */
+			cout << "Type a number: ";
+			cin >> N;
+			sum = 0;
+			for (unsigned long long int i = 0; i < N; i++) {
+				factorial = 1;
+				if (i != 0) {
+					for (unsigned long long int j = 1; j <= i; j++) {
+						factorial *= j;
+					}
+				}
+				sum += (1 / factorial);
+			}
+			cout << "e is approximately: " << sum;
+			break;
+		case 37:
+			// Escriba un programa que reciba un número n y halle la suma de todos los números pares en la serie de Fibonacci menores a n.
+			cout << "Type a number: ";
+			cin >> N;
+			next_term = 0;
+			result = 0;
+			t1 = 1;
+			t2 = 1;
+			while (next_term <= N) {
+				next_term = t2 + t1;
+				t1 = t2;
+				t2 = next_term;
+				if ((next_term % 2) == 0) { result += next_term; }
+			}
+			cout << "The result of the sum is: " << result;
+			break;
+		case 38:
+			/* Escriba un programa que reciba 3 números a, b, c, y calcule la suma de todos los múltiplos de a y b que sean menores a c.
+			Tenga en cuenta no sumar 2 veces los múltiplos comunes. */
+			cout << "Type a number: ";
+			cin >> A;
+			cout << "Type other number: ";
+			cin >> B;
+			cout << "Type the last: ";
+			cin >> C;
+			result = 0;
+			counter = 0;
+			other_counter = 0;
+			no_repeat = A * B;
+			if (A < C && B < C) {
+				counter += A;
+				cout << A;
+				for (unsigned long long int i = 2; (i * A) < C; i++) {
+					counter += (i * A);
+					cout << "+" << (i * A);
+				}
+				for (unsigned long long int j = 1; (j * B) < C; j++) {
+					if (other_counter != no_repeat) {
+						other_counter += (j * B);
+						cout << "+" << (j * B);
+					}
+				}
+				result = counter + other_counter;
+				cout << "=" << result;
+			}
+			else if (A < C) {
+				counter += A;
+				cout << A;
+				for (unsigned long long int i = 2; (i * A) < C; i++) {
+					counter += (i * A);
+					cout << "+" << (i * A);
+				}
+				result = counter;
+				cout << "=" << result;
+			}
+			else if (B < C) {
+				counter += B;
+				cout << B;
+				for (unsigned long long int i = 2; (i * B) < C; i++) {
+					counter += (i * B);
+					cout << "+" << (i * B);
+				}
+				result = counter;
+				cout << "=" << result;
+			}
+			else { cout << 0; }
+			break;
+		case 39:
+			// Escriba un programa que pida un número entero N e imprima el resultado de la suma de todos sus dígitos elevados a sí mismos.
+			cout << "Type a number: ";
+			cin >> N;
+			result = 0;
+			while (N >= 1) {
+				digit = N % 10;
+				N /= 10;
+				counter = 1;
+				for (unsigned long long int i = 1; i <= digit; i++) {
+					counter = digit * counter;
+				}
+				result += counter;
+			}
+			cout << "The result of the sum is: " << result;
+			break;
+		case 40:
+			// Escriba un programa que reciba un número n e imprima el enésimo número primo.
+			break;
+		case 41:
+			// Escriba un programa que reciba un número y calcule el mínimo común múltiplo de todos los números enteros entre 1 y el número ingresado.
+			cout << "Type a number: ";
+			cin >> N;
+			counter = 0;
+			for (unsigned long long int i = 1; true; i++) {
+				for (unsigned long long int j = 1; j <= N; j++) {
+					if ((i % j) == 0) {
+						counter += 1;
+					}
+				}
+				if (counter == N) {
+					result = i;
+					break;
+				}
+				else { counter = 0; }
+			}
+			cout << "The LCM is: " << result;
+			break;
+		case 42:
+			// Escriba un programa que calcula el máximo factor primo de un número.
+			cout << "Type a number: ";
+			cin >> N;
+			other_N = N;
+			counter = 2;
+			while (other_N != 1) {
+				if ((other_N % counter) == 0) {
+					other_N /= counter;
+				}
+				else { counter += 1; }
+			}
+			cout << "The greatest prime factor of " << N << " is: " << counter;
+			break;
+		case 43:
+			// Escriba un programa que reciba un número y calcule la suma de todos los primos menores que el número ingresado.
+			cout << "Type a number: ";
+			cin >> N;
+			if (N > 1) {
+				for (unsigned long long int i = 1; i < N; i++) {
+					counter = 0;
+					for (unsigned long long int j = 1; j <= i; j++) {
+						if ((i % j) == 0) {
+							counter += j;
+						}
+					}
+					if (counter == (i + 1)) {
+						result += (counter - 1);
+					}
+				}
+				cout << "The result of the sum is: " << result;
+			}
+			else { cout << "The result of the sum is: " << result; }
+			break;
+		case 44:
+			// Escriba un programa que calcule el número palíndromo más grande que se puede obtener como una multiplicación de números de 3 dígitos.
+			C = 0;
+			first_number = 100;
+			for (; first_number <= 999; first_number++) {
+				second_number = 100;
+				for (; second_number <= 999; second_number++) {
+					result = 0;
+					N = first_number * second_number;
+					other_N = N;
+					if (N < 100000) { counter = 10000; }
+					else { counter = 100000; }
+					while (other_N >= 1) {
+						digit = other_N % 10;
+						digit *= counter;
+						result += digit;
+						other_N /= 10;
+						counter /= 10;
+					}
+					if (N == result && result > C) {
+						A = first_number;
+						B = second_number;
+						C = result;
+					}
+				}
+			}
+			cout << A << "*" << B << "=" << C;
+			break;
+		case 45:
+			/* En el caso de esta espiral de 5x5, la suma de los números en la diagonal es 101. Escriba un programa que reciba un número impar n
+			y calcule la suma de los números en la diagonal de una espiral de nxn.
+			Empezando con el número 1 y moviéndose hacia la izquierda y en sentido horario se genera una espiral de números como la siguiente:
+				21  22  23  24 25
+				20  7   8   9  10
+				19  6   1   2  11
+				18  5   4   3  12
+				17  16  15  14 13 */
+			break;
+		case 46:
+			/* La serie de Collatz se conforma con la siguiente regla: sea n un elemento de la serie, si n es par, el siguiente elemento es n/2, y si n es impar,
+			el siguiente elemento es 3n+1. Escriba un programa que reciba un número k y calcule cual es el elemento inicial j (semilla), menor que k,
+			que produce la serie más larga y diga cuantos términos m tiene la serie. */
+			cout << "Type a number: ";
+			cin >> N;
+			A = N;
+			counter = 0;
+			while (N != 1) {
+				other_N = N;
+				other_counter = 1;
+				for (; other_N != 1; other_counter++) {
+					if ((other_N % 2) == 0) { other_N /= 2; }
+					else { other_N = (3 * other_N) + 1; }
+				}
+				if (other_counter > counter && N != A) {
+					counter = other_counter;
+					seed = N;
+				}
+				if ((N % 2) == 0) { N /= 2; }
+				else { N = (3 * N) + 1; }
+			}
+			cout << "The longest series is with the seed " << seed << ", having " << counter << " terms." << endl;
+			cout << seed << ", ";
+			while (seed != 1) {
+				if ((seed % 2) == 0) { seed /= 2; }
+				else { seed = (3 * seed) + 1; }
+				cout << seed;
+				if (seed != 1) { cout << ", "; }
+				else { cout << "."; }
+			}
+			break;
+		case 47:
+			/* La secuencia de números triangulares se forma al sumar su posición en el arreglo con el valor del número anterior: 1, 1+2=3, 3+3=6, 6+4=10, 10+5=15, 15+6=21, 21+7=28...
+			Si listamos los números triangulares y sus divisores tenemos:
+				1: 1
+				3: 1,3
+				6: 1,2,3,6
+				10: 1,2,5,10
+				15: 1,3,5,15
+				21: 1,3,7,21
+				28: 1,2,4,7,14,28
+			Se observa que 28 es el primer número triangular que tiene más de 5 divisores. Escriba un programa que reciba un número k y calcule cual es el primer número
+			triangular que tiene más de k divisores.*/
+			cout << "Type a number: ";
+			cin >> N;
+			for (float i = 1; true; i++) {
+				result = i * ((i + 1) / 2);
+				counter = 0;
+				for (unsigned long long int j = 1; j <= result; j++) {
+					if ((result % j) == 0) { counter++; }
+				}
+				if (counter > N) {
+					cout << "The number is " << result << " and has " << counter << " divisors.";
+					break;
+				}
+			}
+			break;
 		default:
 			cout << "The exercise entered does not exist.";
 			break;
