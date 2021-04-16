@@ -11,14 +11,14 @@ int main() {
 
 		/* first, third, fourth, fifth, sixth, seventh, eighth, eleventh, twelveth, fifteenth, sixteenth, seventeenth, eighteenth, nineteenth, twentieth,
 		twenty third, twenty fifth, twenty sixth, twenty seventh, thirty-second, thirty-fifth, thirty-seventh, thirty-eighth, thirty-ninth, forty-first,
-		forty-second, forty-third, forty-fourth, forty-sixth, forty-seventh exercise use some variables from here */
+		forty-second, forty-third, forty-fourth, forty-fifth, forty-sixth, forty-seventh exercise use some variables from here */
 		unsigned long long int A, B, C, remainder, division, result, counter, other_N, digit, higher, first_operand, second_operand, money, wanting, mid, column, other_counter;
 		unsigned long long int next_term, t1, t2, no_repeat, seed;
 		unsigned long long int fifty_thousand, twenty_thousand, ten_thousand, five_thousand, two_thousand, thousand, five_hundred, two_hundred, hundred, fifty;
 
 		/* variable of second, seventh, eighth, ninth, tenth, eleventh, twelveth, thirteenth, fifteenth, sixteenth, seventeenth, eighteenth, nineteenth,
 		twentieth, twenty second, twenty fourth, twenty fifth, twenty eighth, thirty-fifth, thirty-sixth, thirty-seventh, thirty-ninth, forty-first, forty-second,
-		forty-third, forty-fourth, forty-sixth, forty-seventh exercises */
+		forty-third, forty-fourth, forty-fifth, forty-sixth, forty-seventh exercises */
 		unsigned long long int N;
 
 		// fifth, ninth exercise, twenty eighth, thirty-sixth use some variables from here
@@ -28,7 +28,7 @@ int main() {
 		char c, operation, letter;
 
 		// twenty second, thirtieth, thirtieth-third, thirty-fourth, forty-fourth use some variables from here
-		unsigned short int second, minute, hour, number, maximum, minimum, rand_num, short_counter, month, day, first_number, second_number;
+		unsigned short int second, minute, hour, number, maximum, minimum, rand_num, short_counter, month, day, first_number, second_number, n;
 		unsigned short int duration_time, duration_hour, duration_minute, day_time, new_hour, new_minute, time_new;
 
 		cout << "Choose an exercise (between 1 to 47) or type 0 to exit: ";
@@ -43,8 +43,8 @@ int main() {
 			cin >> A;
 			cout << "Type another number: ";
 			cin >> B;
-			remainder = A % B;
-			cout << "The remainder of the division " << A << "/" << B << "is: " << remainder;
+			remainder = A / B;
+			cout << "The remainder of the division " << A << "/" << B << " is: " << remainder;
 			break;
 		case 2:
 			// Escriba un programa que pida un número N e imprima en pantalla si es par o impar.
@@ -178,7 +178,7 @@ int main() {
 		case 14:
 			// Escriba un programa que imprima dos columnas paralelas, una con los números del 1 al 50 y otra con los números del 50 al 1.
 			for (int i = 1; i <= 50; ++i) {
-				cout << i << "   " << (51 - i) << endl;
+				cout << i << "\t" << (51 - i) << endl;
 			}
 			break;
 		case 15:
@@ -443,6 +443,24 @@ int main() {
 			el programa imprimirá en pantalla un número B y el usuario usará los símbolos `>', `<' y `=' para indicarle al programa si B es mayor,
 			menor o igual que A.El programa imprimira un nuevo número B, con base en simbolo ingresado por el usuario, y repetira el proceso
 			hasta acertar el número seleccionado por usuario. */
+			srand(time(NULL));
+			rand_num = rand() % 101;
+			minimum = 0;
+			maximum = 100;
+			while (true) {
+				cout << "The number is " << rand_num;
+				cin >> operation;
+				if (operation == '=') { break; }
+				else if (operation == '<') {
+					minimum = rand_num;
+				}
+				else if (operation == '>') {
+					maximum = rand_num;
+				}
+				else { cout << "Please enter '<', '>' o '='."; }
+				rand_num = rand() % (maximum - minimum + 1) + minimum;
+			}
+			cout << "The number was found and is " << rand_num;
 			break;
 		case 30:
 			/* Escriba un programa que genere un número aleatorio A (entre 0 y 100) y le pida al usuario que lo adivine,
@@ -512,7 +530,7 @@ int main() {
 			cin >> month;
 			cout << "Type a day: ";
 			cin >> day;
-			if (month < 1 || month > 12) { cout << month << "it's an invalid month."; }
+			if (month < 1 || month > 12) { cout << month << " it's an invalid month."; }
 			else {
 				if (month == 2) {
 					if (day == 29) { cout << day << "/" << month << " is valid in leap year."; }
@@ -653,7 +671,7 @@ int main() {
 					cout << "+" << (i * A);
 				}
 				for (unsigned long long int j = 1; (j * B) < C; j++) {
-					if (other_counter != no_repeat) {
+					if ((j * B) != no_repeat) {
 						other_counter += (j * B);
 						cout << "+" << (j * B);
 					}
@@ -701,6 +719,25 @@ int main() {
 			break;
 		case 40:
 			// Escriba un programa que reciba un número n e imprima el enésimo número primo.
+			cout << "Type a number: ";
+			cin >> N;
+			result = 0;
+			for (unsigned long long int i = 1; true; i++) {
+				counter = 0;
+				for (unsigned long long int j = 1; j <= i; j++) {
+					if ((i % j) == 0) {
+						counter += j;
+					}
+				}
+				if (counter == (i + 1)) {
+					result += 1;
+				}
+				if (result == N) {
+					result = i;
+					break;
+				}
+			}
+			cout << "The " << N << " prime number is: " << result;
 			break;
 		case 41:
 			// Escriba un programa que reciba un número y calcule el mínimo común múltiplo de todos los números enteros entre 1 y el número ingresado.
@@ -739,6 +776,7 @@ int main() {
 			// Escriba un programa que reciba un número y calcule la suma de todos los primos menores que el número ingresado.
 			cout << "Type a number: ";
 			cin >> N;
+			result = 0;
 			if (N > 1) {
 				for (unsigned long long int i = 1; i < N; i++) {
 					counter = 0;
@@ -763,9 +801,9 @@ int main() {
 				second_number = 100;
 				for (; second_number <= 999; second_number++) {
 					result = 0;
-					N = first_number * second_number;
-					other_N = N;
-					if (N < 100000) { counter = 10000; }
+					n = first_number * second_number;
+					other_N = n;
+					if (n < 100000) { counter = 10000; }
 					else { counter = 100000; }
 					while (other_N >= 1) {
 						digit = other_N % 10;
@@ -774,7 +812,7 @@ int main() {
 						other_N /= 10;
 						counter /= 10;
 					}
-					if (N == result && result > C) {
+					if (n == result && result > C) {
 						A = first_number;
 						B = second_number;
 						C = result;
@@ -792,6 +830,40 @@ int main() {
 				19  6   1   2  11
 				18  5   4   3  12
 				17  16  15  14 13 */
+			cout << "Type a odd number: ";
+			cin >> N;
+			result = 1;
+			for (unsigned long long int i = 3; i <= N; i += 2) {
+				counter = (i - 2) * (i - 2);
+				other_counter = 1 + (i - 2);
+				for (unsigned long long int j = counter + other_counter; j <= (i * i); j += other_counter) {
+					result += j;
+				}
+			}
+			cout << "In a " << N << "x" << N << ", the sum is " << result << "." << endl;
+			for (unsigned long long int row = 0, ut = 0, lt = 0; row < N; row++) { // ut = upper triangle, lt = left triangle
+				for (unsigned long long int column = 0; column < N; column++) {
+					if (row <= column && row <= N - 1 - column) { // upper triangle
+						cout << (N - 2 * row) * (N - 2 * row - 1) + 1 + ut << "\t";
+						ut++;
+					}
+					else if (row > column && row >= N - 1 - column) { // lower triangle
+						A = N - 1 - row;
+						cout << (N - 2 * A) * (N - 2 * A) - 2 * (N - 2 * A - 1) - ut << "\t";
+						ut++;
+					}
+					else if (row > column && row < N - 1 - column) { // left triangle
+						cout << (N - 2 * column) * (N - 2 * column - 1) + 1 - lt + column << "\t";
+					}
+					else { // right triangle
+						A = N - 1 - column;
+						cout << (N - 2 * A) * (N - 2 * A) - 4 * (N - 2 * A - 1) + lt - A << "\t";
+					}
+				}
+				ut = 0;
+				lt++;
+				cout << endl << endl << endl;
+			}
 			break;
 		case 46:
 			/* La serie de Collatz se conforma con la siguiente regla: sea n un elemento de la serie, si n es par, el siguiente elemento es n/2, y si n es impar,
